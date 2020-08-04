@@ -1,11 +1,16 @@
 package com.andrew.myticketmobile.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -81,10 +86,39 @@ public class EventActivity extends AppCompatActivity {
                 startActivity(orderIntent);
             }
         });
+
+     /*   ImageButton homeButton = findViewById(R.id.home);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent eventIntent = new Intent(EventActivity.this, EventActivity.class);
+                startActivity(eventIntent);
+            }
+        });*/
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu,menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.home:
+                Intent mainIntent = new Intent(this, MainActivity.class);
+                startActivity(mainIntent);
+                break;
+            case R.id.cart:
+                Intent cartIntent = new Intent(this, CartActivity.class);
+                startActivity(cartIntent);
+                break;
+        }
+        return true;
+    }
     public void parseEventInfoListJSON(long id) {
-        String url = "http://05ba165a86d8.ngrok.io/mobile/event/inf/" + id;
+        String url = "http://3cc8bd7d9f28.ngrok.io/mobile/event/inf/" + id;
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {

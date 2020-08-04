@@ -2,7 +2,12 @@ package com.andrew.myticketmobile.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.SearchView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.andrew.myticketmobile.R;
 import com.andrew.myticketmobile.adapters.EventAdapter;
 import com.andrew.myticketmobile.model.Event;
+import com.andrew.myticketmobile.model.Ticket;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -37,27 +43,71 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.OnIt
     private RecyclerView eventList;
     private EventAdapter eventAdapter;
     private ArrayList<Event> eventItemList;
-    private ArrayList<Integer> sizeList;
+    private ArrayList<String> titleList  = new ArrayList<>();
     private RequestQueue requestQueue;
+    public static ArrayList<Ticket> tickets = new ArrayList<>();
+    public static ArrayList<Event> events = new ArrayList<>();
+    LoadingDialog loadingMainDialog = new LoadingDialog(MainActivity.this);
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView (R.layout.activity_main);
-
         eventList = findViewById(R.id.rv_main);
         eventList.setLayoutManager(new LinearLayoutManager(this));
         eventList.setHasFixedSize(true);
 
+
         eventItemList = new ArrayList<>();
         requestQueue = Volley.newRequestQueue(this);
 
+        loadingMainDialog.startLoading();
         parseEventListJSON();
+
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu,menu);
+        MenuItem search = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) search.getActionView();
+        searchView.setQueryHint("Search here");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                eventAdapter.getFilter().filter(s);
+                return true;
+            }
+        });
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.home:
+                Intent mainIntent = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(mainIntent);
+                break;
+            case R.id.cart:
+                Intent cartIntent = new Intent(this, CartActivity.class);
+                startActivity(cartIntent);
+                break;
+        }
+        return true;
     }
 
     public void parseEventListJSON() {
-        String url = "http://05ba165a86d8.ngrok.io/mobile/";
+        String url = "http://3cc8bd7d9f28.ngrok.io/mobile/";
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -77,9 +127,13 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.OnIt
 
                         eventItemList.add(new Event(id,placeTitle,date,title,description,picture,cityTitle));
                     }
-                    eventAdapter = new EventAdapter(MainActivity.this,eventItemList);
+                    for (Event event: eventItemList){
+                        titleList.add(event.getTitle());
+                    }
+                    eventAdapter = new EventAdapter(MainActivity.this,titleList,eventItemList,loadingMainDialog);
                     eventList.setAdapter(eventAdapter);
                     eventAdapter.setOnClickListener(MainActivity.this);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

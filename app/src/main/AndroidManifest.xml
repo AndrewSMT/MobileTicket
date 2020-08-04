@@ -17,6 +17,7 @@
         tools:targetApi="n">
         <activity android:name=".activities.EventActivity"/>
         <activity android:name=".activities.OrderActivity"/>
+        <activity android:name=".activities.CartActivity"/>
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

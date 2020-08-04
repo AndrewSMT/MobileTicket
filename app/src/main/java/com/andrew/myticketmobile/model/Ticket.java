@@ -1,6 +1,7 @@
 package com.andrew.myticketmobile.model;
 
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Ticket {
@@ -11,6 +12,7 @@ public class Ticket {
     private Integer price;
     private Set<String> ticketStatus;
     private Long orderNumber;
+
 
     public Ticket(Long id, Long event, Integer row, Integer number, Integer price, Set<String> ticketStatus, Long orderNumber) {
         this.id = id;

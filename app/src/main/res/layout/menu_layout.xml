@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#DEEAE5"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/home"
+            android:layout_width="58dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="7dp"
+            android:background="#DEEAE5"
+            android:src="@drawable/home"></ImageButton>
+
+        <ImageButton
+            android:id="@+id/search"
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
+            android:background="#DEEAE5"
+            android:src="@drawable/search"></ImageButton>
+
+        <ImageButton
+            android:id="@+id/cart"
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
+            android:background="#DEEAE5"
+            android:src="@drawable/cart"></ImageButton>
+
+        <ImageButton
+            android:id="@+id/ticket"
+            android:background="#DEEAE5"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ticket"></ImageButton>
+
+        <ImageButton
+            android:id="@+id/arrow"
+            android:background="#DEEAE5"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow"></ImageButton>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="401dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/main"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:text="Home" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:text="Search" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="Cart" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:text="Tickets" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="26dp"
+            android:text="Back" />
+
+    </LinearLayout>
+</RelativeLayout>

@@ -2,16 +2,18 @@ package com.andrew.myticketmobile.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrew.myticketmobile.R;
-import com.andrew.myticketmobile.adapters.EventAdapter;
 import com.andrew.myticketmobile.adapters.OrderAdapter;
-import com.andrew.myticketmobile.model.Event;
 import com.andrew.myticketmobile.model.Ticket;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,16 +31,16 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static com.andrew.myticketmobile.activities.EventActivity.EXTRA_EVENT;
-import static com.andrew.myticketmobile.activities.MainActivity.EXTRA_POSITION;
 
 public class OrderActivity extends AppCompatActivity {
 
-    private RecyclerView eventList;
+    private RecyclerView orderList;
     private OrderAdapter orderAdapter;
     private ArrayList<Ticket> ticketList;
-    private ArrayList<Integer> sizeList;
     private RequestQueue requestQueue;
     private String eventId;
+    public LoadingDialog loadingOrderDialog = new LoadingDialog(OrderActivity.this);
+    public ImageView stage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,17 +50,39 @@ public class OrderActivity extends AppCompatActivity {
         Intent intent = getIntent();
         eventId = intent.getStringExtra(EXTRA_EVENT);
 
-        eventList = findViewById(R.id.rv_order);
-        eventList.setLayoutManager(new GridLayoutManager(this,10));
-        eventList.setHasFixedSize(true);
+        orderList = findViewById(R.id.rv_order);
+        orderList.setLayoutManager(new GridLayoutManager(this,10));
+        orderList.setHasFixedSize(true);
 
         ticketList = new ArrayList<>();
         requestQueue = Volley.newRequestQueue(this);
 
+        stage = findViewById(R.id.stage);
+        loadingOrderDialog.startLoading();
         parseTicketListJSON(eventId);
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu,menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.home:
+                Intent mainIntent = new Intent(this, MainActivity.class);
+                startActivity(mainIntent);
+                break;
+            case R.id.cart:
+                Intent cartIntent = new Intent(this, CartActivity.class);
+                startActivity(cartIntent);
+                break;
+        }
+        return true;
+    }
     public void parseTicketListJSON(String eventId) {
-        String url = "http://05ba165a86d8.ngrok.io/mobile/tickets/"+eventId;
+        String url = "http://3cc8bd7d9f28.ngrok.io/mobile/tickets/"+eventId;
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -73,15 +97,16 @@ public class OrderActivity extends AppCompatActivity {
                         Integer place = it.getInt("number");
                         Integer price = it.getInt("price");
                         Set<String> status = new HashSet();
-                        status.add(it.getString("ticketStatus"));
+
+                        status.add( it.getString("ticketStatus").replaceAll("\\W",""));
                         Long orderNumber = null;
                         if(it.getString("orderNumber") != "null" ) {
                            orderNumber = Long.parseLong(it.getString("orderNumber"));
                         }
                         ticketList.add(new Ticket(id,eventId,row,place,price,status,orderNumber));
                     }
-                    orderAdapter = new OrderAdapter(OrderActivity.this,ticketList);
-                    eventList.setAdapter(orderAdapter);
+                    orderAdapter = new OrderAdapter(OrderActivity.this,ticketList,loadingOrderDialog,stage);
+                    orderList.setAdapter(orderAdapter);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

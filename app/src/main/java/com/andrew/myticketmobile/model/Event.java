@@ -10,6 +10,8 @@ public class Event {
     private String picture;
     private String cityTitle;
 
+
+
     public String getCityTitle() {
         return cityTitle;
     }
