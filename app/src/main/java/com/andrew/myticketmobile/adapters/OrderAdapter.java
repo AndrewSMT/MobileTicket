@@ -13,20 +13,27 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.andrew.myticketmobile.activities.CartActivity;
 import com.andrew.myticketmobile.activities.LoadingDialog;
 import com.andrew.myticketmobile.R;
 import com.andrew.myticketmobile.activities.MainActivity;
+import com.andrew.myticketmobile.model.Order;
+import com.andrew.myticketmobile.model.OrderStatus;
 import com.andrew.myticketmobile.model.Ticket;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -38,6 +45,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     private LoadingDialog loadingMainDialog;
     private static int viewHolderCounter;
     private ImageView stage;
+    public static Order order = new Order();
 
     public interface OnItemClickListener {
         void onItemClick(int position);
@@ -72,11 +80,40 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             holder.place.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-                    String url = "http://3cc8bd7d9f28.ngrok.io/mobile/tickets/order/" + currentItem.getId();
+                    if(MainActivity.tickets.isEmpty()) {
+                        order.setOrderId(0L);
+                    }
+                    String url = "http://fe41b8d8e05c.ngrok.io/mobile/tickets/order/" + currentItem.getId()+"?order="+order.getOrderId();
                     JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
+                            JSONObject orderResponse = (JSONObject) response;
+                            try {
+                                order.setOrderId(Long.parseLong(orderResponse.getString("id_order")));
+                                Set<String> status = new HashSet();
+                                status.add(orderResponse.getString("orderStatus").replaceAll("\\W", ""));
+                                order.setOrderStatus(status);
+                                JSONArray ticketResponse = orderResponse.getJSONArray("ticket");
+                                for (int i = 0; i < ticketResponse.length(); i++) {
+                                    JSONObject it = (JSONObject) ticketResponse.get(i);
+                                    Long id = Long.parseLong(it.getString("id_ticket"));
+                                    JSONObject event = it.getJSONObject("event");
+                                    Long eventId = event.getLong("id");
+                                    Integer row = it.getInt("row");
+                                    Integer place = it.getInt("number");
+                                    Integer price = it.getInt("price");
+                                    Set<String> ticketStatus = new HashSet();
+                                    ticketStatus.add(it.getString("ticketStatus").replaceAll("\\W", ""));
+                                    Long orderNumber = order.getOrderId();
+                                    if (it.getString("orderNumber") != "null") {
+                                        orderNumber = Long.parseLong(it.getString("orderNumber"));
+                                    }
+                                    order.getTicket().add(new Ticket(id, eventId, row, place, price, ticketStatus, orderNumber));
+                                    order.setTicket(order.getTicket());
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }, new Response.ErrorListener() {
                         @Override
@@ -100,7 +137,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         if(viewHolderCounter == mTicketList.size()-15){
             loadingMainDialog.dismissDialog();
             stage.setVisibility(View.VISIBLE);
-
+            viewHolderCounter = 0;
         }
     }
 

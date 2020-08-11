@@ -3,6 +3,6 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">localhost</domain>
         <domain includeSubdomains="true">192.168.207.1</domain>
-        <domain includeSubdomains="true">3cc8bd7d9f28.ngrok.io</domain>
+        <domain includeSubdomains="true">fe41b8d8e05c.ngrok.io</domain>
     </domain-config>
 </network-security-config>

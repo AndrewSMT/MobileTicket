@@ -6,12 +6,14 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrew.myticketmobile.R;
+import com.andrew.myticketmobile.activities.BuyTicketsActivity;
 import com.andrew.myticketmobile.model.Event;
 import com.andrew.myticketmobile.model.Ticket;
 import com.android.volley.RequestQueue;
@@ -19,27 +21,22 @@ import com.android.volley.RequestQueue;
 import java.util.ArrayList;
 
 import static com.andrew.myticketmobile.activities.MainActivity.events;
+import static com.andrew.myticketmobile.adapters.OrderAdapter.order;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
     private Context mContext;
     private ArrayList<Ticket> mCartList;
     private ArrayList<Event> mEventList;
-    private OnItemClickListener mListener;
     private RequestQueue requestQueue;
+    private Button cartButton;
+    private TextView orderText;
 
-    public interface OnItemClickListener {
-        void onItemClick(int position);
-    }
-
-    public void setOnClickListener(OnItemClickListener listener) {
-        mListener = listener;
-    }
-
-
-    public CartAdapter(Context context, ArrayList<Ticket> ticketList) {
+    public CartAdapter(Context context, ArrayList<Ticket> ticketList, Button cartButton,TextView orderText) {
         mContext = context;
         mCartList = ticketList;
+        this.orderText = orderText;
+        this.cartButton = cartButton;
     }
 
     @NonNull
@@ -67,10 +64,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                  eventTitle = event.getTitle();
             }
         }
+        orderText.setText("Order № "+order.getOrderId());
         holder.rowPlace.setText("Row: " + row.toString()+" Place: "+number.toString());
         holder.datePlace.setText(date+", "+place+", "+city);
         holder.title.setText(eventTitle);
         holder.price.setText("Price: "+ price.toString()+"UAH");
+        cartButton.setVisibility(View.VISIBLE);
     }
 
 

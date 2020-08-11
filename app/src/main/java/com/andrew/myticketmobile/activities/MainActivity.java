@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.OnIt
     public static final String EXTRA_PLACE = "placeName";
     public static final String EXTRA_DISC = "discName";
     public static final String EXTRA_CITY = "cityName";
-    public static final String EXTRA_POSITION = "0";
+    public static final String EXTRA_POSITION = "-1";
 
     private RecyclerView eventList;
     private EventAdapter eventAdapter;
@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.OnIt
 
         loadingMainDialog.startLoading();
         parseEventListJSON();
-
 
     }
 
@@ -102,12 +101,16 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.OnIt
                 Intent cartIntent = new Intent(this, CartActivity.class);
                 startActivity(cartIntent);
                 break;
+            case R.id.tickets:
+                Intent ticketsIntent = new Intent(this, BuyTicketsActivity.class);
+                startActivity(ticketsIntent);
+                break;
         }
         return true;
     }
 
     public void parseEventListJSON() {
-        String url = "http://3cc8bd7d9f28.ngrok.io/mobile/";
+        String url = "http://fe41b8d8e05c.ngrok.io/mobile/";
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {

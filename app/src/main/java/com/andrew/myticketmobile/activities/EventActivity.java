@@ -114,11 +114,15 @@ public class EventActivity extends AppCompatActivity {
                 Intent cartIntent = new Intent(this, CartActivity.class);
                 startActivity(cartIntent);
                 break;
+            case R.id.tickets:
+                Intent ticketsIntent = new Intent(this, BuyTicketsActivity.class);
+                startActivity(ticketsIntent);
+                break;
         }
         return true;
     }
     public void parseEventInfoListJSON(long id) {
-        String url = "http://3cc8bd7d9f28.ngrok.io/mobile/event/inf/" + id;
+        String url = "http://fe41b8d8e05c.ngrok.io/mobile/event/inf/" + id;
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {

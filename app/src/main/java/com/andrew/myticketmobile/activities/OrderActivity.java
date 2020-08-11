@@ -51,7 +51,7 @@ public class OrderActivity extends AppCompatActivity {
         eventId = intent.getStringExtra(EXTRA_EVENT);
 
         orderList = findViewById(R.id.rv_order);
-        orderList.setLayoutManager(new GridLayoutManager(this,10));
+        orderList.setLayoutManager(new GridLayoutManager(this, 10));
         orderList.setHasFixedSize(true);
 
         ticketList = new ArrayList<>();
@@ -61,15 +61,17 @@ public class OrderActivity extends AppCompatActivity {
         loadingOrderDialog.startLoading();
         parseTicketListJSON(eventId);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu,menu);
+        inflater.inflate(R.menu.menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.home:
                 Intent mainIntent = new Intent(this, MainActivity.class);
                 startActivity(mainIntent);
@@ -78,11 +80,16 @@ public class OrderActivity extends AppCompatActivity {
                 Intent cartIntent = new Intent(this, CartActivity.class);
                 startActivity(cartIntent);
                 break;
+            case R.id.tickets:
+                Intent ticketsIntent = new Intent(this, BuyTicketsActivity.class);
+                startActivity(ticketsIntent);
+                break;
         }
         return true;
     }
+
     public void parseTicketListJSON(String eventId) {
-        String url = "http://3cc8bd7d9f28.ngrok.io/mobile/tickets/"+eventId;
+        String url = "http://fe41b8d8e05c.ngrok.io/mobile/tickets/" + eventId;
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -91,21 +98,21 @@ public class OrderActivity extends AppCompatActivity {
                         JSONObject it = (JSONObject) response.get(i);
 
                         Long id = Long.parseLong(it.getString("id_ticket"));
-                        JSONObject event =  it.getJSONObject("event");
-                        Long eventId =  event.getLong("id");
+                        JSONObject event = it.getJSONObject("event");
+                        Long eventId = event.getLong("id");
                         Integer row = it.getInt("row");
                         Integer place = it.getInt("number");
                         Integer price = it.getInt("price");
                         Set<String> status = new HashSet();
 
-                        status.add( it.getString("ticketStatus").replaceAll("\\W",""));
+                        status.add(it.getString("ticketStatus").replaceAll("\\W", ""));
                         Long orderNumber = null;
-                        if(it.getString("orderNumber") != "null" ) {
-                           orderNumber = Long.parseLong(it.getString("orderNumber"));
+                        if (it.getString("orderNumber") != "null") {
+                            orderNumber = Long.parseLong(it.getString("orderNumber"));
                         }
-                        ticketList.add(new Ticket(id,eventId,row,place,price,status,orderNumber));
+                        ticketList.add(new Ticket(id, eventId, row, place, price, status, orderNumber));
                     }
-                    orderAdapter = new OrderAdapter(OrderActivity.this,ticketList,loadingOrderDialog,stage);
+                    orderAdapter = new OrderAdapter(OrderActivity.this, ticketList, loadingOrderDialog, stage);
                     orderList.setAdapter(orderAdapter);
                 } catch (JSONException e) {
                     e.printStackTrace();

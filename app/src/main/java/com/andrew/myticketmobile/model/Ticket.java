@@ -1,8 +1,17 @@
 package com.andrew.myticketmobile.model;
 
 
-import java.util.HashSet;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
+import com.andrew.myticketmobile.activities.MainActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+
+import static com.andrew.myticketmobile.adapters.OrderAdapter.order;
 
 public class Ticket {
     private Long id;
@@ -14,6 +23,9 @@ public class Ticket {
     private Long orderNumber;
 
 
+    public Ticket(){
+    }
+
     public Ticket(Long id, Long event, Integer row, Integer number, Integer price, Set<String> ticketStatus, Long orderNumber) {
         this.id = id;
         this.event = event;
@@ -22,6 +34,22 @@ public class Ticket {
         this.price = price;
         this.ticketStatus = ticketStatus;
         this.orderNumber = orderNumber;
+    }
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public static StringBuilder stringTicket(Ticket ticket) {
+        StringBuilder stringTicket = new StringBuilder();
+        Event event = MainActivity.events.get(Math.toIntExact(ticket.getEvent()-4));
+        stringTicket.append(ticket.getId()+";");
+        stringTicket.append(event.getTitle()+";");
+        stringTicket.append(event.getDate()+";");
+        stringTicket.append(event.getPlace()+";");
+        stringTicket.append(event.getCityTitle()+";");
+        stringTicket.append(ticket.getRow()+";");
+        stringTicket.append(ticket.getNumber()+";");
+        stringTicket.append(ticket.getPrice()+";");
+        stringTicket.append(ticket.getTicketStatus()+";");
+        stringTicket.append(order.getOrderId()+";");
+        return stringTicket;
     }
 
     public Long getId() {
