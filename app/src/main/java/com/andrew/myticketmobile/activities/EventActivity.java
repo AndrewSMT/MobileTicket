@@ -1,8 +1,5 @@
 package com.andrew.myticketmobile.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,9 +7,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.andrew.myticketmobile.R;
 import com.android.volley.Request;
@@ -31,15 +30,14 @@ import java.util.ArrayList;
 import static com.andrew.myticketmobile.activities.MainActivity.EXTRA_CITY;
 import static com.andrew.myticketmobile.activities.MainActivity.EXTRA_DATE;
 import static com.andrew.myticketmobile.activities.MainActivity.EXTRA_DISC;
-
 import static com.andrew.myticketmobile.activities.MainActivity.EXTRA_PIC;
 import static com.andrew.myticketmobile.activities.MainActivity.EXTRA_PLACE;
-
 import static com.andrew.myticketmobile.activities.MainActivity.EXTRA_POSITION;
 import static com.andrew.myticketmobile.activities.MainActivity.EXTRA_TITLE;
 
 
 public class EventActivity extends AppCompatActivity {
+
     public static final String EXTRA_EVENT = "-1";
     private ArrayList<Integer> sizeList;
     private RequestQueue requestQueue;
@@ -50,7 +48,6 @@ public class EventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
-
 
         Intent intent = getIntent();
         String picture = intent.getStringExtra(EXTRA_PIC);
@@ -67,11 +64,9 @@ public class EventActivity extends AppCompatActivity {
         TextView discView = findViewById(R.id.event_disc);
         orderButton = findViewById(R.id.order_button);
 
-
         sizeList = new ArrayList();
         requestQueue = Volley.newRequestQueue(this);
         parseEventInfoListJSON(Long.parseLong(eventId));
-
 
         Picasso.with(this).load(picture).fit().centerCrop().into(imageView);
         titleView.setText(title);
@@ -86,26 +81,18 @@ public class EventActivity extends AppCompatActivity {
                 startActivity(orderIntent);
             }
         });
-
-     /*   ImageButton homeButton = findViewById(R.id.home);
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent eventIntent = new Intent(EventActivity.this, EventActivity.class);
-                startActivity(eventIntent);
-            }
-        });*/
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu,menu);
+        inflater.inflate(R.menu.menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.home:
                 Intent mainIntent = new Intent(this, MainActivity.class);
                 startActivity(mainIntent);
@@ -121,6 +108,7 @@ public class EventActivity extends AppCompatActivity {
         }
         return true;
     }
+
     public void parseEventInfoListJSON(long id) {
         String url = "http://3361bdd5b40a.ngrok.io/mobile/event/inf/" + id;
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {

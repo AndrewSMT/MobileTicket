@@ -11,8 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.andrew.myticketmobile.activities.LoadingDialog;
 import com.andrew.myticketmobile.R;
+import com.andrew.myticketmobile.activities.LoadingDialog;
 import com.andrew.myticketmobile.activities.MainActivity;
 import com.andrew.myticketmobile.model.Event;
 import com.squareup.picasso.Picasso;
@@ -62,15 +62,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         mListener = listener;
     }
 
-    public int getCount() {
-        return filteredData.size();
-    }
-
-    public Object getItem(int position) {
-        return originalData.get(position);
-    }
-
-
     @NonNull
     @Override
     public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -115,7 +106,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             dateTitle = itemView.findViewById(R.id.event_date);
             placeTitle = itemView.findViewById(R.id.event_place);
 
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -139,7 +129,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
             List<Event> list = originalData;
             int count = list.size();
-            final ArrayList<Event> resultList = new ArrayList<Event>(count);
+            final ArrayList<Event> resultList = new ArrayList<>(count);
 
             if("".equals(filterString)){
                 resultList.addAll(list);

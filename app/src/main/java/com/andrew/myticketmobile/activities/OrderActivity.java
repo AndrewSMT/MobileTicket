@@ -39,8 +39,8 @@ public class OrderActivity extends AppCompatActivity {
     private ArrayList<Ticket> ticketList;
     private RequestQueue requestQueue;
     private String eventId;
-    public LoadingDialog loadingOrderDialog = new LoadingDialog(OrderActivity.this);
     public ImageView stage;
+    public LoadingDialog loadingOrderDialog = new LoadingDialog(OrderActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

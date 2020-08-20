@@ -1,9 +1,7 @@
 package com.andrew.myticketmobile.activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrew.myticketmobile.R;
 import com.andrew.myticketmobile.adapters.CartAdapter;
-import com.andrew.myticketmobile.model.FullTicket;
 import com.andrew.myticketmobile.model.Ticket;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -35,13 +32,13 @@ import static com.andrew.myticketmobile.activities.MainActivity.tickets;
 import static com.andrew.myticketmobile.adapters.OrderAdapter.order;
 
 public class CartActivity extends AppCompatActivity {
+    public static String email = null;
     private RecyclerView cartList;
     private CartAdapter cartAdapter;
     private RequestQueue requestQueue;
     private Button cartButton;
     private TextView orderText;
     private String ticketList = "";
-    public static String email = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,7 +57,6 @@ public class CartActivity extends AppCompatActivity {
         }
         cartAdapter = new CartAdapter(CartActivity.this, tickets,cartButton,orderText);
         cartList.setAdapter(cartAdapter);
-        cartButton.setVisibility(View.VISIBLE);//
         for (Ticket ticket : tickets) {
             ticketList += ticket.getId() + ",";
         }
@@ -75,7 +71,7 @@ public class CartActivity extends AppCompatActivity {
                     parseMakeOrderJSON(email,order.getOrderId());
                     BuyTicketsActivity.buyTickets = tickets;
                     tickets = new ArrayList<>();
-                   // cartButton.setVisibility(View.INVISIBLE);
+                    cartButton.setVisibility(View.INVISIBLE);
                     Toast.makeText(CartActivity.this,"Order was finished",Toast.LENGTH_LONG).show();
                     Intent cartIntent = new Intent(CartActivity.this, CartActivity.class);
                     startActivity(cartIntent);

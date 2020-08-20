@@ -20,9 +20,9 @@ import com.android.volley.toolbox.Volley;
 import java.util.UUID;
 
 public class EmailDialog  extends Dialog {
-    Activity activity;
-    EditText editText,editCode;
-    Button emailButton,codeButton;
+    private Activity activity;
+    private EditText editText,editCode;
+    private Button emailButton,codeButton;
     private RequestQueue requestQueue;
     private  String code;
     private TextView error_text;
@@ -32,6 +32,7 @@ public class EmailDialog  extends Dialog {
         super(activity);
         this.activity = activity;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +64,7 @@ public class EmailDialog  extends Dialog {
             }
         });
     }
+
     public void sendEmailOrderJSON(String email,String code) {
         String url = "http://3361bdd5b40a.ngrok.io/mobile/tickets/confirm?email=" + email+"&code="+code;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
@@ -78,5 +80,4 @@ public class EmailDialog  extends Dialog {
         });
         requestQueue.add(stringRequest);
     }
-
 }

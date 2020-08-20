@@ -4,18 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrew.myticketmobile.R;
-import com.andrew.myticketmobile.model.Event;
 import com.andrew.myticketmobile.model.FullTicket;
-import com.android.volley.RequestQueue;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BuyTicketAdapter extends RecyclerView.Adapter<BuyTicketAdapter.BuyTicketViewHolder> {
@@ -51,7 +47,6 @@ public class BuyTicketAdapter extends RecyclerView.Adapter<BuyTicketAdapter.BuyT
         holder.price.setText("Price: " + price.toString() + "UAH");
     }
 
-
     @Override
     public int getItemCount() {
         return mCartList.size();
@@ -72,6 +67,5 @@ public class BuyTicketAdapter extends RecyclerView.Adapter<BuyTicketAdapter.BuyT
             price = itemView.findViewById(R.id.ticket_price);
             ticketOrder = itemView.findViewById(R.id.ticket_order);
         }
-
     }
 }

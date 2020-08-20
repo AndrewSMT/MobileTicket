@@ -13,18 +13,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.andrew.myticketmobile.activities.CartActivity;
-import com.andrew.myticketmobile.activities.LoadingDialog;
 import com.andrew.myticketmobile.R;
+import com.andrew.myticketmobile.activities.LoadingDialog;
 import com.andrew.myticketmobile.activities.MainActivity;
 import com.andrew.myticketmobile.model.Order;
-import com.andrew.myticketmobile.model.OrderStatus;
 import com.andrew.myticketmobile.model.Ticket;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -46,12 +43,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     private static int viewHolderCounter;
     private ImageView stage;
     public static Order order = new Order();
-
-    public interface OnItemClickListener {
-        void onItemClick(int position);
-    }
-
-
 
     public OrderAdapter(Context context, ArrayList<Ticket> ticketList, LoadingDialog loadingOrderDialog, ImageView stage) {
         mContext = context;

@@ -64,12 +64,14 @@ public class BuyTicketsActivity extends AppCompatActivity {
         buyTicketAdapter = new BuyTicketAdapter(BuyTicketsActivity.this, FullTicket.ticketFromPer(ticketsFromPer));
         ticketBuyList.setAdapter(buyTicketAdapter);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu,menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {

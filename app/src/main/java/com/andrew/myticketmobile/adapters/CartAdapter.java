@@ -2,8 +2,6 @@ package com.andrew.myticketmobile.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrew.myticketmobile.R;
-import com.andrew.myticketmobile.activities.BuyTicketsActivity;
 import com.andrew.myticketmobile.activities.CartActivity;
 import com.andrew.myticketmobile.model.Event;
 import com.andrew.myticketmobile.model.Ticket;
@@ -115,6 +112,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             }
         }
     }
+
     public void deleteTicketFromCart(Long id) {
         String url = "http://3361bdd5b40a.ngrok.io/mobile/tickets/delete/"+id;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {

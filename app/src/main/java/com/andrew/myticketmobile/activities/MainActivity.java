@@ -31,7 +31,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements EventAdapter.OnItemClickListener {
 
-
     public static final String EXTRA_PIC = "imageURL";
     public static final String EXTRA_TITLE = "titleName";
     public static final String EXTRA_DATE = "dateName";
@@ -58,13 +57,11 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.OnIt
         eventList.setLayoutManager(new LinearLayoutManager(this));
         eventList.setHasFixedSize(true);
 
-
         eventItemList = new ArrayList<>();
         requestQueue = Volley.newRequestQueue(this);
 
         loadingMainDialog.startLoading();
         parseEventListJSON();
-
     }
 
     @Override
@@ -76,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.OnIt
         searchView.setQueryHint("Search here");
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
             @Override
             public boolean onQueryTextSubmit(String s) {
                 return false;
@@ -162,7 +160,6 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.OnIt
         eventIntent.putExtra(EXTRA_DISC, clickEvent.getDescription());
         eventIntent.putExtra(EXTRA_CITY, clickEvent.getCityTitle());
         eventIntent.putExtra(EXTRA_POSITION, clickEvent.getId().toString());
-
 
         startActivity(eventIntent);
     }
