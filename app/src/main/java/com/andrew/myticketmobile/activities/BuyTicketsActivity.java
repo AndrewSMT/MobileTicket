@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,10 +27,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class BuyTicketsActivity extends AppCompatActivity {
+    public static ArrayList<Ticket> buyTickets = new ArrayList<>();
     private RecyclerView ticketBuyList;
     private BuyTicketAdapter buyTicketAdapter;
-    public static ArrayList<Ticket> buyTickets = new ArrayList<>();
     private SharedPreferences myPreferences = null;
+    private TextView empty;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -55,6 +57,10 @@ public class BuyTicketsActivity extends AppCompatActivity {
         ticketBuyList.setLayoutManager(new LinearLayoutManager(this));
         ticketBuyList.setHasFixedSize(true);
 
+        empty = findViewById(R.id.empty);
+        if( FullTicket.ticketFromPer(ticketsFromPer).isEmpty()){
+            empty.setText("You don't have tickets");
+        }
         buyTicketAdapter = new BuyTicketAdapter(BuyTicketsActivity.this, FullTicket.ticketFromPer(ticketsFromPer));
         ticketBuyList.setAdapter(buyTicketAdapter);
     }

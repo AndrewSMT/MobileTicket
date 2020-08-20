@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.OnIt
     }
 
     public void parseEventListJSON() {
-        String url = "http://fe41b8d8e05c.ngrok.io/mobile/";
+        String url = "http://3361bdd5b40a.ngrok.io/mobile/";
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {

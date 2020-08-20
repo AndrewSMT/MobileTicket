@@ -1,66 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="8dp"
-    app:cardCornerRadius="8dp">
+    app:cardCornerRadius="8dp"
+    app:cardBackgroundColor="@color/White">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:padding="16dp">
 
 
-    <ImageView
-        android:id="@+id/event_image"
-        android:layout_width="200dp"
-        android:layout_height="250dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="10dp"/>
+        <ImageView
+            android:id="@+id/event_image"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_gravity="start"
+            android:layout_marginBottom="10dp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/event_title"
-        android:padding="10dp"
-        android:textSize="20sp"
-        android:gravity="center_vertical"
-        android:fontFamily="monospace"
-        android:layout_marginBottom="10dp"/>
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="@color/cardview_dark_background" />
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/event_place"
-            android:padding="10dp"
-            android:textSize="15sp"
-            android:gravity="center_vertical"
-            android:fontFamily="monospace"
-            android:layout_marginTop="10dp"/>
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="@color/cardview_dark_background" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/event_date"
-            android:padding="10dp"
-            android:textSize="15sp"
-            android:gravity="center_vertical"
-            android:fontFamily="monospace"
-            android:layout_marginTop="10dp"/>
+            android:orientation="vertical">
 
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="@color/cardview_dark_background" />
+            <TextView
+                android:id="@+id/event_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="monospace"
+                android:gravity="center_vertical"
+                android:padding="2dp"
+                android:textColor="#000000"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/event_place"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="monospace"
+                android:gravity="center_vertical"
+                android:padding="2dp"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/event_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="monospace"
+                android:gravity="center_vertical"
+                android:padding="2dp"
+                android:textSize="12sp" />
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

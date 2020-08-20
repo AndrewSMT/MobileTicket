@@ -13,21 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.andrew.myticketmobile.R;
 import com.andrew.myticketmobile.model.Event;
 import com.andrew.myticketmobile.model.FullTicket;
-import com.andrew.myticketmobile.model.Ticket;
 import com.android.volley.RequestQueue;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.andrew.myticketmobile.activities.MainActivity.events;
-import static com.andrew.myticketmobile.adapters.OrderAdapter.order;
-
 public class BuyTicketAdapter extends RecyclerView.Adapter<BuyTicketAdapter.BuyTicketViewHolder> {
     private Context mContext;
     private List<FullTicket> mCartList;
-    private ArrayList<Event> mEventList;
-    private RequestQueue requestQueue;
-    private Button cartButton;
 
     public BuyTicketAdapter(Context context, List<FullTicket> ticketList) {
         mContext = context;

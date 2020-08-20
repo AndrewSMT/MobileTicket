@@ -19,12 +19,14 @@
         android:textSize="20dp"
         android:textColor="@color/cardview_light_background"
         android:text="Make payment"
-        android:background="#50DA55"/>
+        android:background="#FFC107"
+        android:shadowRadius="@android:integer/config_mediumAnimTime"/>
 
     <TextView
         android:id="@+id/order"
         android:layout_marginLeft="10dp"
         android:textSize="20dp"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <androidx.recyclerview.widget.RecyclerView

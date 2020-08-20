@@ -89,7 +89,7 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     public void parseTicketListJSON(String eventId) {
-        String url = "http://fe41b8d8e05c.ngrok.io/mobile/tickets/" + eventId;
+        String url = "http://3361bdd5b40a.ngrok.io/mobile/tickets/" + eventId;
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {

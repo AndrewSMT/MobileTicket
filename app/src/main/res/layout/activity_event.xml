@@ -5,86 +5,74 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="8dp"
-    tools:context=".activities.EventActivity">
+    tools:context=".activities.EventActivity"
+    android:background="@color/colorPrimaryDark">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#E8E4E4">
 
         <ImageView
             android:id="@+id/event_image"
             android:layout_width="match_parent"
-            android:layout_height="350dp" />
+            android:layout_height="300dp" />
 
         <TextView
             android:id="@+id/event_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:textSize="24dp"
             android:gravity="center"
-            android:textColor="#0E0E0E"/>
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="@color/cardview_dark_background" />
+            android:textColor="#0E0E0E"
+            android:background="@color/Title"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/event_date_place"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textSize="18dp"
+            android:textSize="15dp"
             android:textColor="#0E0E0E"
             android:gravity="center"/>
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="@color/cardview_dark_background" />
-
         <TextView
             android:id="@+id/event_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textSize="18dp"
+            android:textSize="15dp"
             android:textColor="#0E0E0E"
             android:gravity="center"/>
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="@color/cardview_dark_background"
-            android:layout_marginBottom="8dp"/>
 
         <Button
             android:id="@+id/order_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_marginLeft="70dp"
             android:layout_marginRight="70dp"
             android:layout_marginBottom="8dp"
             android:textSize="20dp"
             android:textColor="@color/cardview_light_background"
             android:text="Make order"
-            android:background="#50DA55"/>
+            android:background="#FFC107"
+            />
 
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
-            android:background="@color/cardview_dark_background" />
+            android:background="#FFC107" />
 
         <TextView
             android:id="@+id/event_disc"
+            android:padding="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textSize="18dp"
-            android:textColor="#0E0E0E"
-            android:gravity="center"
-            android:background="#37FFFFFF"/>
+            android:textSize="13dp"
+            android:textColor="#0E0E0E" />
 
         <View
             android:layout_width="fill_parent"

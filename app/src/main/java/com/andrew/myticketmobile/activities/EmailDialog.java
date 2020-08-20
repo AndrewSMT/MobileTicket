@@ -46,7 +46,6 @@ public class EmailDialog  extends Dialog {
             @Override
             public void onClick(View view) {
                 emailFromEdit = editText.getText().toString();
-                emailFromEdit = "vewebi1206@mailvk.net";
                 code = UUID.randomUUID().toString().substring(0,8).toUpperCase();
                 sendEmailOrderJSON(emailFromEdit,code);
             }
@@ -65,7 +64,7 @@ public class EmailDialog  extends Dialog {
         });
     }
     public void sendEmailOrderJSON(String email,String code) {
-        String url = "http://fe41b8d8e05c.ngrok.io/mobile/tickets/confirm?email=" + email+"&code="+code;
+        String url = "http://3361bdd5b40a.ngrok.io/mobile/tickets/confirm?email=" + email+"&code="+code;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

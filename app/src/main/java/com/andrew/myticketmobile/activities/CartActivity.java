@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.andrew.myticketmobile.R;
 import com.andrew.myticketmobile.adapters.CartAdapter;
+import com.andrew.myticketmobile.model.FullTicket;
 import com.andrew.myticketmobile.model.Ticket;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -54,11 +55,12 @@ public class CartActivity extends AppCompatActivity {
         cartButton = findViewById(R.id.cart_button);
         orderText = findViewById(R.id.order);
 
+        if(tickets.isEmpty()){
+            orderText.setText("Cart is empty");
+        }
         cartAdapter = new CartAdapter(CartActivity.this, tickets,cartButton,orderText);
         cartList.setAdapter(cartAdapter);
-
-
-
+        cartButton.setVisibility(View.VISIBLE);//
         for (Ticket ticket : tickets) {
             ticketList += ticket.getId() + ",";
         }
@@ -66,18 +68,18 @@ public class CartActivity extends AppCompatActivity {
         cartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-           /*     if(email == null) {
+                if(email == null) {
                     EmailDialog emailDialog = new EmailDialog(CartActivity.this);
                     emailDialog.show();
-                }else {*/
+                }else {
                     parseMakeOrderJSON(email,order.getOrderId());
                     BuyTicketsActivity.buyTickets = tickets;
                     tickets = new ArrayList<>();
-                    cartButton.setVisibility(View.INVISIBLE);
+                   // cartButton.setVisibility(View.INVISIBLE);
                     Toast.makeText(CartActivity.this,"Order was finished",Toast.LENGTH_LONG).show();
                     Intent cartIntent = new Intent(CartActivity.this, CartActivity.class);
                     startActivity(cartIntent);
-           //     }
+                }
             }
         });
     }
@@ -110,7 +112,7 @@ public class CartActivity extends AppCompatActivity {
 
     public void parseMakeOrderJSON(String email, Long orderId) {
         email = "vewebi1206@mailvk.net";
-        String url = "http://fe41b8d8e05c.ngrok.io/mobile/tickets?tickets=" + ticketList+"&email="+email+"&order="+orderId;
+        String url = "http://3361bdd5b40a.ngrok.io/mobile/tickets?tickets=" + ticketList+"&email="+email+"&order="+orderId;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

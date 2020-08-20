@@ -83,7 +83,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                     if(MainActivity.tickets.isEmpty()) {
                         order.setOrderId(0L);
                     }
-                    String url = "http://fe41b8d8e05c.ngrok.io/mobile/tickets/order/" + currentItem.getId()+"?order="+order.getOrderId();
+                    String url = "http://3361bdd5b40a.ngrok.io/mobile/tickets/order/" + currentItem.getId()+"?order="+order.getOrderId();
                     JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
